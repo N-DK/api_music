@@ -1,0 +1,15 @@
+D:\java_web\string_boot\api_website_music\workspace\music\src\main\java\com\ndkmusic\entities\Genres.java
+D:\java_web\string_boot\api_website_music\workspace\music\src\main\java\com\ndkmusic\entities\PlayList.java
+D:\java_web\string_boot\api_website_music\workspace\music\src\main\java\com\ndkmusic\entities\Song.java
+D:\java_web\string_boot\api_website_music\workspace\music\src\main\java\com\ndkmusic\dto\SongDTO.java
+D:\java_web\string_boot\api_website_music\workspace\music\src\main\java\com\ndkmusic\entities\Role.java
+D:\java_web\string_boot\api_website_music\workspace\music\src\main\java\com\ndkmusic\entities\SongArtist.java
+D:\java_web\string_boot\api_website_music\workspace\music\src\main\java\com\ndkmusic\api\SongAPI.java
+D:\java_web\string_boot\api_website_music\workspace\music\src\main\java\com\ndkmusic\Application.java
+D:\java_web\string_boot\api_website_music\workspace\music\src\main\java\com\ndkmusic\entities\Users.java
+D:\java_web\string_boot\api_website_music\workspace\music\src\main\java\com\ndkmusic\entities\AlbumArtist.java
+D:\java_web\string_boot\api_website_music\workspace\music\src\main\java\com\ndkmusic\entities\BaseEntity.java
+D:\java_web\string_boot\api_website_music\workspace\music\src\main\java\com\ndkmusic\entities\SongAlbum.java
+D:\java_web\string_boot\api_website_music\workspace\music\src\main\java\com\ndkmusic\entities\Album.java
+D:\java_web\string_boot\api_website_music\workspace\music\src\main\java\com\ndkmusic\entities\Artist.java
+D:\java_web\string_boot\api_website_music\workspace\music\src\main\java\com\ndkmusic\entities\PlayListSong.java

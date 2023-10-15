@@ -1,0 +1,15 @@
+com\ndkmusic\entities\Album.class
+com\ndkmusic\entities\Role.class
+com\ndkmusic\entities\SongAlbum.class
+com\ndkmusic\api\SongAPI.class
+com\ndkmusic\entities\AlbumArtist.class
+com\ndkmusic\entities\Genres.class
+com\ndkmusic\entities\PlayList.class
+com\ndkmusic\entities\Song.class
+com\ndkmusic\entities\SongArtist.class
+com\ndkmusic\dto\SongDTO.class
+com\ndkmusic\entities\PlayListSong.class
+com\ndkmusic\entities\Users.class
+com\ndkmusic\Application.class
+com\ndkmusic\entities\Artist.class
+com\ndkmusic\entities\BaseEntity.class
