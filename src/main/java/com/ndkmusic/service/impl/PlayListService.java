@@ -30,9 +30,15 @@ public class PlayListService implements IPlayListService {
 
 	@Override
 	public PlayListDTO save(PlayListDTO playListDTO) {
+		PlayList playList = new PlayList();
+		if (playListDTO.getId() != null) {
+			PlayList oldPlaylistEntity = playListRepository.findOneById(playListDTO.getId());
+			playList = playListConverter.toEntity(playListDTO, oldPlaylistEntity);
+		} else {
+			playList = playListConverter.toEntity(playListDTO);
+		}
 		User user = userRepository.findOneByEmail(playListDTO.getEmailUser());
 		Song song = songRepository.findOneByTitle(playListDTO.getFavoriteSong());
-		PlayList playList = playListConverter.toEntity(playListDTO);
 		playList.getSongs().add(song);
 		song.getPlayLists().add(playList);
 		playList.setUser(user);

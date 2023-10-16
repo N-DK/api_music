@@ -21,4 +21,10 @@ public class PlayListConverter {
 		playListDTO.setFavoriteSong(playList.getFavoriteSong());
 		return playListDTO;
 	} 
+	
+	public PlayList toEntity(PlayListDTO playListDTO, PlayList playList) {
+		playList.setName(playListDTO.getName());
+		playList.setFavoriteSong(playListDTO.getFavoriteSong());
+		return playList;
+	}
 }

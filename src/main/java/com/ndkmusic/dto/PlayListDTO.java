@@ -1,6 +1,6 @@
 package com.ndkmusic.dto;
 
-public class PlayListDTO {
+public class PlayListDTO extends AbstractDTO<PlayListDTO>{
 	private String name;
 	private String favoriteSong;
 	private String emailUser;
