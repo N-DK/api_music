@@ -4,6 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.ndkmusic.entities.Song;
 
-public interface SongRepository extends JpaRepository<Song, Long>{
-	
+public interface SongRepository extends JpaRepository<Song, Long> {
+	Song findOneByTitle(String name);
 }

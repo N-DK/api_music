@@ -1,6 +1,6 @@
 package com.ndkmusic.entities;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,10 +31,10 @@ public class User extends BaseEntity {
 
 	@OneToMany(mappedBy = "user")
 	private List<PlayList> playLists = new ArrayList<PlayList>();
-	
+
 	@ManyToOne
 	private Role role;
-	
+
 	public String getNickName() {
 		return nickName;
 	}
@@ -73,6 +73,22 @@ public class User extends BaseEntity {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public List<PlayList> getPlayLists() {
+		return playLists;
+	}
+
+	public void setPlayLists(List<PlayList> playLists) {
+		this.playLists = playLists;
+	}
+
+	public Role getRole() {
+		return role;
+	}
+
+	public void setRole(Role role) {
+		this.role = role;
 	}
 
 }
