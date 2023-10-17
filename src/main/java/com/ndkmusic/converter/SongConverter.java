@@ -18,7 +18,7 @@ public class SongConverter {
 		song.setTimePlay(songDTO.getTimePlay());
 		return song;
 	}
-	
+
 	public SongDTO toDTO(Song song) {
 		SongDTO songDTO = new SongDTO();
 		songDTO.setTitle(song.getTitle());
@@ -26,9 +26,13 @@ public class SongConverter {
 		songDTO.setAudioUrl(song.getAudioUrl());
 		songDTO.setThumbnail(song.getThumbnail());
 		songDTO.setTimePlay(song.getTimePlay());
+		songDTO.setModifiedDate(song.getModifiedDate());
+		songDTO.setModifiedBy(song.getModifiedBy());
+		songDTO.setCreatedBy(song.getCreatedBy());
+		songDTO.setCreatedDate(song.getCreatedDate());
 		return songDTO;
 	}
-	
+
 	public Album toAlbum(Song song) {
 		Album album = new Album();
 		album.setName(song.getTitle() + "(Single)");

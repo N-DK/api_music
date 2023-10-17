@@ -2,7 +2,7 @@ package com.ndkmusic.dto;
 
 import java.util.List;
 
-public class SongDTO {
+public class SongDTO extends AbstractDTO<SongDTO>{
 	private String title;
 	private String audioUrl;
 	private String thumbnail;

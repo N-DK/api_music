@@ -5,7 +5,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
-public class ArtistDTO {
+public class ArtistDTO extends AbstractDTO<ArtistDTO>{
 	private String artistName;
 	private Long numberFollower;
 	private int gender;

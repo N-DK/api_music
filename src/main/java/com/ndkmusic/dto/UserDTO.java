@@ -5,7 +5,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class UserDTO {
+public class UserDTO extends AbstractDTO<UserDTO>{
 	private String nickName;
 	private String email;
 	private Date birthday;

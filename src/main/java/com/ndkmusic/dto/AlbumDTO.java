@@ -2,7 +2,7 @@ package com.ndkmusic.dto;
 
 import java.util.List;
 
-public class AlbumDTO {
+public class AlbumDTO extends AbstractDTO<AlbumDTO>{
 	private String name;
 	private String thumbnail;
 	private Long totalListen;

@@ -1,6 +1,6 @@
 package com.ndkmusic.dto;
 
-public class GenresDTO {
+public class GenresDTO extends AbstractDTO<GenresDTO> {
 	private String name;
 	private String code;
 
