@@ -16,20 +16,20 @@ import com.ndkmusic.repository.SongRepository;
 import com.ndkmusic.service.ISongService;
 
 @Service
-public class SongService implements ISongService{
-	
+public class SongService implements ISongService {
+
 	@Autowired
 	private SongRepository songRepository;
-	
+
 	@Autowired
 	private ArtistRepository artistRepository;
-	
+
 	@Autowired
 	private AlbumRepository albumRepository;
-	
+
 	@Autowired
 	private GenresRepository genresRepository;
-	
+
 	@Autowired
 	private SongConverter songConverter;
 
@@ -42,11 +42,11 @@ public class SongService implements ISongService{
 			Artist artistEntity = artistRepository.findOneByName(artist);
 			song.getSongArtists().add(artistEntity);
 		}
-		if(songDTO.getAlbums().size() == 0) {
+		if (songDTO.getAlbums().size() == 0) {
 			Album album = songConverter.toAlbum(song);
 			song.getAlbums().add(album);
 		} else {
-			for(String album : songDTO.getAlbums()) {
+			for (String album : songDTO.getAlbums()) {
 				Album albumEntity = albumRepository.findOneByName(album);
 				song.getAlbums().add(albumEntity);
 			}
@@ -54,6 +54,12 @@ public class SongService implements ISongService{
 		songRepository.save(song);
 		return songConverter.toDTO(song);
 	}
-	
-	
+
+	@Override
+	public void delete(long[] ids) {
+		for (Long id : ids) {
+			songRepository.deleteById(id);
+		}
+	}
+
 }
