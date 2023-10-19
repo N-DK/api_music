@@ -1,6 +1,10 @@
 package com.ndkmusic.service.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.ndkmusic.converter.SongConverter;
@@ -38,16 +42,16 @@ public class SongService implements ISongService {
 		Genres genres = genresRepository.findOneByCode(songDTO.getGenresCode());
 		Song song = songConverter.toEntity(songDTO);
 		song.setGenres(genres);
-		for (String artist : songDTO.getArtists()) {
-			Artist artistEntity = artistRepository.findOneByName(artist);
+		for (Object artist : songDTO.getArtists()) {
+			Artist artistEntity = artistRepository.findOneByName(artist.toString());
 			song.getSongArtists().add(artistEntity);
 		}
 		if (songDTO.getAlbums().size() == 0) {
 			Album album = songConverter.toAlbum(song);
 			song.getAlbums().add(album);
 		} else {
-			for (String album : songDTO.getAlbums()) {
-				Album albumEntity = albumRepository.findOneByName(album);
+			for (Object album : songDTO.getAlbums()) {
+				Album albumEntity = albumRepository.findOneByName(album.toString());
 				song.getAlbums().add(albumEntity);
 			}
 		}
@@ -60,6 +64,21 @@ public class SongService implements ISongService {
 		for (Long id : ids) {
 			songRepository.deleteById(id);
 		}
+	}
+
+	@Override
+	public List<SongDTO> findAll(Pageable pageable) {
+		List<SongDTO> results = new ArrayList<SongDTO>();
+		List<Song> listSongEntity = songRepository.findAll(pageable).getContent();
+		for (Song song : listSongEntity) {
+			results.add(songConverter.toDTO(song));
+		}
+		return results;
+	}
+
+	@Override
+	public int totalItem() {
+		return (int) songRepository.count();
 	}
 
 }

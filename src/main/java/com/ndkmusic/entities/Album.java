@@ -11,11 +11,15 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import org.springframework.data.annotation.Id;
 
-@SuppressWarnings("unused")
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
+//import org.springframework.data.annotation.Id;
+//
+//@SuppressWarnings("unused")
 @Entity
 @Table(name = "album")
+@JsonPropertyOrder
 public class Album extends BaseEntity {
 
 	@Column
@@ -84,6 +88,12 @@ public class Album extends BaseEntity {
 
 	public void setGenres(Genres genresAlbum) {
 		this.genresAlbum = genresAlbum;
+	}
+
+	@Override
+	public String toString() {
+		return "Album [name=" + name + ", thumbnail=" + thumbnail + ", totalListen=" + totalListen + ", songs=" + songs
+				+ ", albumArtists=" + albumArtists + ", genresAlbum=" + genresAlbum + "]";
 	}
 
 }

@@ -2,17 +2,17 @@ package com.ndkmusic.dto;
 
 import java.util.List;
 
-public class SongDTO extends AbstractDTO<SongDTO>{
+public class SongDTO extends AbstractDTO<SongDTO> {
 	private String title;
 	private String audioUrl;
 	private String thumbnail;
 	private String lyric;
 	private String timePlay;
-	private Integer totalListen;
+	private Long totalListen;
 	private String genresCode;
-	private List<String> artists;
-	private List<String> albums;
-	private List<String> playLists;
+	private List<Object> artists;
+	private List<Object> albums;
+	private List<Object> playLists;
 
 	public String getTitle() {
 		return title;
@@ -46,11 +46,11 @@ public class SongDTO extends AbstractDTO<SongDTO>{
 		this.timePlay = timePlay;
 	}
 
-	public Integer getTotalListen() {
+	public Long getTotalListen() {
 		return totalListen;
 	}
 
-	public void setTotalListen(Integer totalListen) {
+	public void setTotalListen(Long totalListen) {
 		this.totalListen = totalListen;
 	}
 
@@ -62,27 +62,19 @@ public class SongDTO extends AbstractDTO<SongDTO>{
 		this.genresCode = genresCode;
 	}
 
-	public List<String> getArtists() {
+	public List<Object> getArtists() {
 		return artists;
 	}
 
-	public void setArtists(List<String> artists) {
+	public void setArtists(List<Object> artists) {
 		this.artists = artists;
 	}
 
-	public List<String> getAlbums() {
-		return albums;
-	}
-
-	public void setAlbums(List<String> albums) {
-		this.albums = albums;
-	}
-
-	public List<String> getPlayLists() {
+	public List<Object> getPlayLists() {
 		return playLists;
 	}
 
-	public void setPlayLists(List<String> playLists) {
+	public void setPlayLists(List<Object> playLists) {
 		this.playLists = playLists;
 	}
 
@@ -92,6 +84,14 @@ public class SongDTO extends AbstractDTO<SongDTO>{
 
 	public void setLyric(String lyric) {
 		this.lyric = lyric;
+	}
+
+	public List<Object> getAlbums() {
+		return albums;
+	}
+
+	public void setAlbums(List<Object> albums) {
+		this.albums = albums;
 	}
 
 }

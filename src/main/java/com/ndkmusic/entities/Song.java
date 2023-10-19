@@ -31,7 +31,7 @@ public class Song extends BaseEntity {
 	private String timePlay;
 
 	@Column
-	private Integer totalListen;
+	private Long totalListen;
 
 //	cascade = CascadeType.ALL để tự động cập nhật bảng trung gian
 	@ManyToMany(cascade = CascadeType.ALL)
@@ -90,14 +90,14 @@ public class Song extends BaseEntity {
 		this.timePlay = timePlay;
 	}
 
-	public Integer getTotalListen() {
+	public Long getTotalListen() {
 		return totalListen;
 	}
 
-	public void setTotalListen(Integer totalListen) {
+	public void setTotalListen(Long totalListen) {
 		this.totalListen = totalListen;
 	}
-	
+
 	public Genres getGenres() {
 		return genresSong;
 	}
@@ -129,15 +129,5 @@ public class Song extends BaseEntity {
 	public void setPlayLists(List<PlayList> playLists) {
 		this.playLists = playLists;
 	}
-
-	public Genres getGenresSong() {
-		return genresSong;
-	}
-
-	public void setGenresSong(Genres genresSong) {
-		this.genresSong = genresSong;
-	}
-	
-	
 
 }
