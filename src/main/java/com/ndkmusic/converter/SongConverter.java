@@ -3,19 +3,18 @@ package com.ndkmusic.converter;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.ndkmusic.dto.SongAlbumId;
+import com.ndkmusic.dto.SongArtistId;
 import com.ndkmusic.dto.SongDTO;
 import com.ndkmusic.entities.Album;
+import com.ndkmusic.entities.Artist;
 import com.ndkmusic.entities.Song;
 
 @Component
 public class SongConverter {
 
-	@Autowired
-	private AlbumConverter albumConverter;
-	
 	public Song toEntity(SongDTO songDTO) {
 		Song song = new Song();
 		song.setTitle(songDTO.getTitle());
@@ -40,10 +39,13 @@ public class SongConverter {
 		songDTO.setCreatedDate(song.getCreatedDate());
 		songDTO.setGenresCode(song.getGenres().getCode());
 		songDTO.setTotalListen(song.getTotalListen() == null ? 0 : song.getTotalListen());
-		List<Object> artists = createList(song.getSongArtists());
+		List<Object> artists = new ArrayList<Object>();
 		List<Object> albums = new ArrayList<Object>();
 		for (Album album : song.getAlbums()) {
-			albums.add(albumConverter.toDTO(album));
+			albums.add(new SongAlbumId(album.getId(), album.getName()));
+		}
+		for (Artist artist : song.getSongArtists()) {
+			artists.add(new SongArtistId(artist.getId(), artist.getName()));
 		}
 		songDTO.setArtists(artists);
 		songDTO.setAlbums(albums);
@@ -59,11 +61,4 @@ public class SongConverter {
 		return album;
 	}
 
-	private <T> List<Object> createList(List<T> list) {
-		List<Object> objects = new ArrayList<Object>();
-		for (T item : list) {
-			objects.add(item);
-		}
-		return objects;
-	}
 }

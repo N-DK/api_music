@@ -90,10 +90,4 @@ public class Album extends BaseEntity {
 		this.genresAlbum = genresAlbum;
 	}
 
-	@Override
-	public String toString() {
-		return "Album [name=" + name + ", thumbnail=" + thumbnail + ", totalListen=" + totalListen + ", songs=" + songs
-				+ ", albumArtists=" + albumArtists + ", genresAlbum=" + genresAlbum + "]";
-	}
-
 }

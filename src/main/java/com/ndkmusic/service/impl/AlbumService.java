@@ -1,6 +1,10 @@
 package com.ndkmusic.service.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.ndkmusic.converter.AlbumConverter;
@@ -33,13 +37,31 @@ public class AlbumService implements IAlbumService {
 		Genres genres = genresRepository.findOneByCode(albumDTO.getGenresCode());
 		Album album = albumConverter.toEntity(albumDTO);
 		album.setGenres(genres);
-		for (String artist : albumDTO.getArtists()) {
-			Artist artistEntity = artistRepository.findOneByName(artist);
+		for (Object artist : albumDTO.getArtists()) {
+			Artist artistEntity = artistRepository.findOneByName(artist.toString());
 			album.getAlbumArtists().add(artistEntity);
 		}
 		albumRepository.save(album);
 		// TODO Auto-generated method stub
 		return albumConverter.toDTO(album);
+	}
+
+	@Override
+	public List<AlbumDTO> findAll(Pageable pageable) {
+		List<Album> albums = albumRepository.findAll(pageable).getContent();
+		List<AlbumDTO> result = new ArrayList<AlbumDTO>();
+		for (Album album : albums) {
+			result.add(albumConverter.toDTO(album));
+		}
+		return result;
+	}
+
+	@Override
+	public List<AlbumDTO> findOneById(long id) {
+		Album album = albumRepository.findOneById(id);
+		List<AlbumDTO> result = new ArrayList<AlbumDTO>();
+		result.add(albumConverter.toDTO(album));
+		return result;
 	}
 
 }

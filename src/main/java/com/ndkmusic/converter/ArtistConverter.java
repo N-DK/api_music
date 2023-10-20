@@ -22,16 +22,22 @@ public class ArtistConverter {
 		return artist;
 	}
 
-	public ArtistDTO toDTO(ArtistDTO artist) {
+	public ArtistDTO toDTO(Artist artist) {
 		DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 		ArtistDTO artistDTO = new ArtistDTO();
-		artistDTO.setArtistName(artist.getArtistName());
+		artistDTO.setId(artist.getId());
+		artistDTO.setArtistName(artist.getName());
 		artistDTO.setBirthday(String.format("%s", dateFormat.format(artist.getBirthday())));
 		artistDTO.setGender(artist.getGender());
+		artistDTO.setCreatedBy(artist.getCreatedBy());
+		artistDTO.setCreatedDate(artist.getCreatedDate());
+		artistDTO.setModifiedBy(artist.getModifiedBy());
+		artistDTO.setModifiedDate(artist.getModifiedDate());
 		artistDTO.setProfilePath(artist.getProfilePath());
 		artistDTO.setBiography(artist.getBiography());
-		artistDTO.setNumberFollower(artist.getNumberFollower());
+		artistDTO.setNumberFollower(artist.getNumberFollow());
 		artistDTO.setPlaceOfBirth(artist.getPlaceOfBirth());
 		return artistDTO;
 	}
+
 }

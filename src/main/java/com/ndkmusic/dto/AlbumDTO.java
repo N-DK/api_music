@@ -7,7 +7,8 @@ public class AlbumDTO extends AbstractDTO<AlbumDTO>{
 	private String thumbnail;
 	private Long totalListen;
 	private String genresCode;
-	private List<String> artists;
+	private List<Object> artists;
+	private List<Object> songs;
 
 	public String getName() {
 		return name;
@@ -41,12 +42,20 @@ public class AlbumDTO extends AbstractDTO<AlbumDTO>{
 		this.genresCode = genresCode;
 	}
 
-	public List<String> getArtists() {
+	public List<Object> getArtists() {
 		return artists;
 	}
 
-	public void setArtists(List<String> artists) {
+	public void setArtists(List<Object> artists) {
 		this.artists = artists;
+	}
+
+	public List<Object> getSongs() {
+		return songs;
+	}
+
+	public void setSongs(List<Object> songs) {
+		this.songs = songs;
 	}
 
 }

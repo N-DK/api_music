@@ -22,7 +22,7 @@ public class ArtistService implements IArtistService {
 	public ArtistDTO save(ArtistDTO artistDTO) {
 		Artist artist = artistConverter.toEntity(artistDTO);
 		artistRepository.save(artist);
-		return artistConverter.toDTO(artistDTO);
+		return artistConverter.toDTO(artist);
 	}
 
 }

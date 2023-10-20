@@ -42,17 +42,28 @@ public class SongService implements ISongService {
 		Genres genres = genresRepository.findOneByCode(songDTO.getGenresCode());
 		Song song = songConverter.toEntity(songDTO);
 		song.setGenres(genres);
+//		add artist for song
 		for (Object artist : songDTO.getArtists()) {
 			Artist artistEntity = artistRepository.findOneByName(artist.toString());
 			song.getSongArtists().add(artistEntity);
 		}
 		if (songDTO.getAlbums().size() == 0) {
 			Album album = songConverter.toAlbum(song);
+//			add artist if song not in album
+			for (Object artist : songDTO.getArtists()) {
+				Artist artistEntity = artistRepository.findOneByName(artist.toString());
+				album.getAlbumArtists().add(artistEntity);
+			}
 			song.getAlbums().add(album);
 		} else {
 			for (Object album : songDTO.getAlbums()) {
 				Album albumEntity = albumRepository.findOneByName(album.toString());
 				song.getAlbums().add(albumEntity);
+//				add artist if song in a album
+				for (Object artist : songDTO.getArtists()) {
+					Artist artistEntity = artistRepository.findOneByName(artist.toString());
+					albumEntity.getAlbumArtists().add(artistEntity);
+				}
 			}
 		}
 		songRepository.save(song);

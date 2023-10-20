@@ -1,8 +1,6 @@
 package com.ndkmusic.dto;
 
 import java.util.Date;
-import java.util.ArrayList;
-import java.util.List;
 
 public class AbstractDTO<T> {
 	private Long id;
@@ -10,7 +8,6 @@ public class AbstractDTO<T> {
 	private Date createdDate;
 	private String modifiedBy;
 	private Date modifiedDate;
-	private List<T> results = new ArrayList<T>();
 
 	public Long getId() {
 		return id;
@@ -50,14 +47,6 @@ public class AbstractDTO<T> {
 
 	public void setModifiedDate(Date modifiedDate) {
 		this.modifiedDate = modifiedDate;
-	}
-
-	public List<T> getResults() {
-		return results;
-	}
-
-	public void setResults(List<T> results) {
-		this.results = results;
 	}
 
 }
