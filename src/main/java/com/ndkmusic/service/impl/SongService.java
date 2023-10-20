@@ -46,6 +46,7 @@ public class SongService implements ISongService {
 		for (Object artist : songDTO.getArtists()) {
 			Artist artistEntity = artistRepository.findOneByName(artist.toString());
 			song.getSongArtists().add(artistEntity);
+			artistEntity.getSongs().add(song);
 		}
 		if (songDTO.getAlbums().size() == 0) {
 			Album album = songConverter.toAlbum(song);

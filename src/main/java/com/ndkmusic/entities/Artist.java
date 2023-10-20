@@ -96,4 +96,20 @@ public class Artist extends BaseEntity {
 		this.placeOfBirth = placeOfBirth;
 	}
 
+	public List<Song> getSongs() {
+		return songs;
+	}
+
+	public void setSongs(List<Song> songs) {
+		this.songs = songs;
+	}
+
+	public List<Album> getAlbums() {
+		return albums;
+	}
+
+	public void setAlbums(List<Album> albums) {
+		this.albums = albums;
+	}
+
 }
