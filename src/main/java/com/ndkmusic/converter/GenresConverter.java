@@ -16,8 +16,11 @@ public class GenresConverter {
 
 	public GenresDTO toDTO(Genres genres) {
 		GenresDTO genresDTO = new GenresDTO();
+		genresDTO.setId(genres.getId());
 		genresDTO.setName(genres.getName());
 		genresDTO.setCode(genres.getCode());
+		genresDTO.setCreatedDate(genres.getCreatedDate());
+		genresDTO.setModifiedDate(genres.getModifiedDate());
 		return genresDTO;
 	}
 }

@@ -11,6 +11,7 @@ import com.ndkmusic.entities.Artist;
 @Component
 public class ArtistConverter {
 	public Artist toEntity(ArtistDTO artistDTO) {
+
 		Artist artist = new Artist();
 		artist.setName(artistDTO.getArtistName());
 		artist.setBirthday(artistDTO.getBirthday());

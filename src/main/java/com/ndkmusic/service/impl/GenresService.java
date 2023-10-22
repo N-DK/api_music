@@ -1,6 +1,10 @@
 package com.ndkmusic.service.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.ndkmusic.converter.GenresConverter;
@@ -24,6 +28,22 @@ public class GenresService implements IGenresService {
 		Genres genres = genresConverter.toEntity(genresDTO);
 		genresRepository.save(genres);
 		return genresConverter.toDTO(genres);
+	}
+
+	@Override
+	public List<GenresDTO> findAll(Pageable pageable) {
+		List<GenresDTO> results = new ArrayList<GenresDTO>();
+		List<Genres> genreses = genresRepository.findAll(pageable).getContent();
+		for (Genres genres : genreses) {
+			results.add(genresConverter.toDTO(genres));
+		}
+		return results;
+	}
+
+	@Override
+	public int totalItem() {
+		// TODO Auto-generated method stub
+		return (int) genresRepository.count();
 	}
 
 }

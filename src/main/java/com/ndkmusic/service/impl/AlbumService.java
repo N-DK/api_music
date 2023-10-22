@@ -64,4 +64,9 @@ public class AlbumService implements IAlbumService {
 		return result;
 	}
 
+	@Override
+	public int totalItem() {
+		return (int) albumRepository.count();
+	}
+
 }

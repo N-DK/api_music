@@ -16,4 +16,6 @@ public interface IArtistService {
 	List<Object> getSongs(Long id);
 
 	List<Object> getAblums(Long id);
+	
+	int totalItem();
 }

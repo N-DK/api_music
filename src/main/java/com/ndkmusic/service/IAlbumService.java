@@ -12,4 +12,6 @@ public interface IAlbumService {
 	List<AlbumDTO> findAll(Pageable pageable);
 
 	List<AlbumDTO> findOneById(long id);
+	
+	int totalItem();
 }

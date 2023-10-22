@@ -77,4 +77,9 @@ public class ArtistService implements IArtistService {
 		return result;
 	}
 
+	@Override
+	public int totalItem() {
+		return (int) artistRepository.count();
+	}
+
 }
