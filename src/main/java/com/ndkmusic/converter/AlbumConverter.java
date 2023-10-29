@@ -52,4 +52,10 @@ public class AlbumConverter {
 		albumDTO.setArtists(artists);
 		return albumDTO;
 	}
+	
+	public Album toEntity(AlbumDTO albumDTO, Album album) {
+		album.setName(albumDTO.getName());
+		album.setThumbnail(albumDTO.getThumbnail());
+		return album;
+	}
 }

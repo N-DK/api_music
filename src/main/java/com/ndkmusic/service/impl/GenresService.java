@@ -25,7 +25,9 @@ public class GenresService implements IGenresService {
 	@Override
 	public GenresDTO save(GenresDTO genresDTO) {
 		// TODO Auto-generated method stub
-		Genres genres = genresConverter.toEntity(genresDTO);
+		Genres genres = genresDTO.getId() != null
+				? genresConverter.toEntity(genresDTO, genresRepository.findOneById(genresDTO.getId()))
+				: genresConverter.toEntity(genresDTO);
 		genresRepository.save(genres);
 		return genresConverter.toDTO(genres);
 	}
@@ -51,6 +53,15 @@ public class GenresService implements IGenresService {
 		for (long id : ids) {
 			genresRepository.deleteById(id);
 		}
+	}
+
+	@Override
+	public List<GenresDTO> findOneById(long id) {
+		// TODO Auto-generated method stub
+		Genres genres = genresRepository.findOneById(id);
+		List<GenresDTO> result = new ArrayList<GenresDTO>();
+		result.add(genresConverter.toDTO(genres));
+		return result;
 	}
 
 }

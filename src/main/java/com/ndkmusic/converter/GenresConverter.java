@@ -23,4 +23,10 @@ public class GenresConverter {
 		genresDTO.setModifiedDate(genres.getModifiedDate());
 		return genresDTO;
 	}
+
+	public Genres toEntity(GenresDTO genresDTO, Genres genres) {
+		genres.setName(genresDTO.getName());
+		genres.setCode(genresDTO.getCode());
+		return genres;
+	}
 }

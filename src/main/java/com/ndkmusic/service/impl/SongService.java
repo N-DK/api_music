@@ -40,7 +40,9 @@ public class SongService implements ISongService {
 	@Override
 	public SongDTO save(SongDTO songDTO) {
 		Genres genres = genresRepository.findOneByCode(songDTO.getGenresCode());
-		Song song = songConverter.toEntity(songDTO);
+		Song song = songDTO.getId() != null
+				? songConverter.toEntity(songDTO, songRepository.findOneById(songDTO.getId()))
+				: songConverter.toEntity(songDTO);
 		song.setGenres(genres);
 //		add artist for song
 		for (Object artist : songDTO.getArtists()) {
@@ -91,6 +93,14 @@ public class SongService implements ISongService {
 	@Override
 	public int totalItem() {
 		return (int) songRepository.count();
+	}
+
+	@Override
+	public List<SongDTO> findOneById(long id) {
+		List<SongDTO> result = new ArrayList<SongDTO>();
+		Song song = songRepository.findOneById(id);
+		result.add(songConverter.toDTO(song));
+		return result;
 	}
 
 }

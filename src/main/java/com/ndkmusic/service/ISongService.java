@@ -12,6 +12,8 @@ public interface ISongService {
 	void delete(long[] ids);
 
 	List<SongDTO> findAll(Pageable pageable);
+	
+	List<SongDTO> findOneById(long id);
 
 	int totalItem();
 }

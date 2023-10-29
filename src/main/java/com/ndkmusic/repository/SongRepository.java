@@ -6,4 +6,5 @@ import com.ndkmusic.entities.Song;
 
 public interface SongRepository extends JpaRepository<Song, Long> {
 	Song findOneByTitle(String name);
+	Song findOneById(long id);
 }

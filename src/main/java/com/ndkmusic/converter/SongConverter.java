@@ -63,4 +63,14 @@ public class SongConverter {
 		return album;
 	}
 
+	public Song toEntity(SongDTO songDTO, Song song) {
+		songDTO.setAudioUrl(
+				createLinkFromCloud(songDTO.getAudioUrl(), "video", "ndk_music/song/" + songDTO.getTitle()));
+		song.setTitle(songDTO.getTitle());
+		song.setLyric(songDTO.getLyric());
+		song.setAudioUrl(songDTO.getAudioUrl());
+		song.setThumbnail(songDTO.getThumbnail());
+		song.setTimePlay(songDTO.getTimePlay());
+		return song;
+	}
 }

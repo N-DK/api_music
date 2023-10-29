@@ -35,14 +35,15 @@ public class AlbumService implements IAlbumService {
 	@Override
 	public AlbumDTO save(AlbumDTO albumDTO) {
 		Genres genres = genresRepository.findOneByCode(albumDTO.getGenresCode());
-		Album album = albumConverter.toEntity(albumDTO);
+		Album album = albumDTO.getId() != null
+				? albumConverter.toEntity(albumDTO, albumRepository.findOneById(albumDTO.getId()))
+				: albumConverter.toEntity(albumDTO);
 		album.setGenres(genres);
 		for (Object artist : albumDTO.getArtists()) {
 			Artist artistEntity = artistRepository.findOneByName(artist.toString());
 			album.getAlbumArtists().add(artistEntity);
 		}
 		albumRepository.save(album);
-		// TODO Auto-generated method stub
 		return albumConverter.toDTO(album);
 	}
 

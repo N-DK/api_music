@@ -34,7 +34,9 @@ public class ArtistService implements IArtistService {
 
 	@Override
 	public ArtistDTO save(ArtistDTO artistDTO) {
-		Artist artist = artistConverter.toEntity(artistDTO);
+		Artist artist = artistDTO.getId() != null
+				? artistConverter.toEntity(artistDTO, artistRepository.findOneById(artistDTO.getId()))
+				: artistConverter.toEntity(artistDTO);
 		artistRepository.save(artist);
 		return artistConverter.toDTO(artist);
 	}

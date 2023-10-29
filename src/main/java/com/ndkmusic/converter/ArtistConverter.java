@@ -43,4 +43,17 @@ public class ArtistConverter {
 		return artistDTO;
 	}
 
+	public Artist toEntity(ArtistDTO artistDTO, Artist artist) {
+		artistDTO.setProfilePath(createLinkFromCloud(artistDTO.getProfilePath(), "image",
+				"ndk_music/artist/avatar/" + artistDTO.getArtistName()));
+		artist.setName(artistDTO.getArtistName());
+		artist.setBirthday(artistDTO.getBirthday());
+		artist.setGender(artistDTO.getGender());
+		artist.setProfilePath(artistDTO.getProfilePath());
+		artist.setBiography(artistDTO.getBiography());
+		artist.setNumberFollow((artistDTO.getNumberFollower() != null ? artistDTO.getNumberFollower() : 0));
+		artist.setPlaceOfBirth(artistDTO.getPlaceOfBirth());
+		return artist;
+	}
+
 }
