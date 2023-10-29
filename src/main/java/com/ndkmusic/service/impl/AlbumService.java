@@ -69,4 +69,12 @@ public class AlbumService implements IAlbumService {
 		return (int) albumRepository.count();
 	}
 
+	@Override
+	public void delete(long[] ids) {
+		// TODO Auto-generated method stub
+		for (long id : ids) {
+			albumRepository.deleteById(id);
+		}
+	}
+
 }

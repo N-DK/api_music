@@ -12,4 +12,6 @@ public interface IGenresService {
 	List<GenresDTO> findAll(Pageable pageable);
 	
 	int totalItem();
+	
+	void delete(long[] ids);
 }

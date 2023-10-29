@@ -18,4 +18,6 @@ public interface IArtistService {
 	List<Object> getAblums(Long id);
 	
 	int totalItem();
+	
+	void delete(long[] ids);
 }

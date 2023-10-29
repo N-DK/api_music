@@ -43,7 +43,7 @@ public class ArtistDTO extends AbstractDTO<ArtistDTO>{
 	}
 
 	public void setBirthday(String birthday) {
-        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         try {
 			this.birthday = (Date) dateFormat.parse(birthday);
 		} catch (ParseException e) {

@@ -14,4 +14,6 @@ public interface IAlbumService {
 	List<AlbumDTO> findOneById(long id);
 	
 	int totalItem();
+	
+	void delete(long[] ids);
 }

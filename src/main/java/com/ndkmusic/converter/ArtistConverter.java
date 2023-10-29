@@ -7,11 +7,13 @@ import org.springframework.stereotype.Component;
 
 import com.ndkmusic.dto.ArtistDTO;
 import com.ndkmusic.entities.Artist;
+import static com.ndkmusic.utils.UploadToCloud.createLinkFromCloud;
 
 @Component
 public class ArtistConverter {
 	public Artist toEntity(ArtistDTO artistDTO) {
-
+		artistDTO.setProfilePath(createLinkFromCloud(artistDTO.getProfilePath(), "image",
+				"ndk_music/artist/avatar/" + artistDTO.getArtistName()));
 		Artist artist = new Artist();
 		artist.setName(artistDTO.getArtistName());
 		artist.setBirthday(artistDTO.getBirthday());
@@ -24,7 +26,7 @@ public class ArtistConverter {
 	}
 
 	public ArtistDTO toDTO(Artist artist) {
-		DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		ArtistDTO artistDTO = new ArtistDTO();
 		artistDTO.setId(artist.getId());
 		artistDTO.setArtistName(artist.getName());

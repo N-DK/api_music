@@ -46,4 +46,11 @@ public class GenresService implements IGenresService {
 		return (int) genresRepository.count();
 	}
 
+	@Override
+	public void delete(long[] ids) {
+		for (long id : ids) {
+			genresRepository.deleteById(id);
+		}
+	}
+
 }
