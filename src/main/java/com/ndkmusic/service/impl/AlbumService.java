@@ -41,7 +41,9 @@ public class AlbumService implements IAlbumService {
 		album.setGenres(genres);
 		for (Object artist : albumDTO.getArtists()) {
 			Artist artistEntity = artistRepository.findOneByName(artist.toString());
-			album.getAlbumArtists().add(artistEntity);
+			if (!album.getAlbumArtists().contains(artistEntity)) {
+				album.getAlbumArtists().add(artistEntity);
+			}
 		}
 		albumRepository.save(album);
 		return albumConverter.toDTO(album);

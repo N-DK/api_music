@@ -47,25 +47,36 @@ public class SongService implements ISongService {
 //		add artist for song
 		for (Object artist : songDTO.getArtists()) {
 			Artist artistEntity = artistRepository.findOneByName(artist.toString());
-			song.getSongArtists().add(artistEntity);
-			artistEntity.getSongs().add(song);
+			if (!song.getSongArtists().contains(artistEntity)) {
+				song.getSongArtists().add(artistEntity);
+				artistEntity.getSongs().add(song);
+			}
 		}
 		if (songDTO.getAlbums().size() == 0) {
 			Album album = songConverter.toAlbum(song);
 //			add artist if song not in album
 			for (Object artist : songDTO.getArtists()) {
 				Artist artistEntity = artistRepository.findOneByName(artist.toString());
-				album.getAlbumArtists().add(artistEntity);
+				if (!album.getAlbumArtists().contains(artistEntity)) {
+					album.getAlbumArtists().add(artistEntity);
+				}
 			}
-			song.getAlbums().add(album);
+			if (!song.getAlbums().contains(album)) {
+				song.getAlbums().add(album);
+
+			}
 		} else {
 			for (Object album : songDTO.getAlbums()) {
 				Album albumEntity = albumRepository.findOneByName(album.toString());
-				song.getAlbums().add(albumEntity);
+				if (!song.getAlbums().contains(albumEntity)) {
+					song.getAlbums().add(albumEntity);
+				}
 //				add artist if song in a album
 				for (Object artist : songDTO.getArtists()) {
 					Artist artistEntity = artistRepository.findOneByName(artist.toString());
-					albumEntity.getAlbumArtists().add(artistEntity);
+					if (!albumEntity.getAlbumArtists().contains(artistEntity)) {
+						albumEntity.getAlbumArtists().add(artistEntity);
+					}
 				}
 			}
 		}
