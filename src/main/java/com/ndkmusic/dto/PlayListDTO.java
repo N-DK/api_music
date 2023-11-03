@@ -2,7 +2,7 @@ package com.ndkmusic.dto;
 
 public class PlayListDTO extends AbstractDTO<PlayListDTO>{
 	private String name;
-	private String favoriteSong;
+	private Object[] favoriteSong;
 	private String emailUser;
 
 	public String getName() {
@@ -13,11 +13,11 @@ public class PlayListDTO extends AbstractDTO<PlayListDTO>{
 		this.name = name;
 	}
 
-	public String getFavoriteSong() {
+	public Object[] getFavoriteSong() {
 		return favoriteSong;
 	}
 
-	public void setFavoriteSong(String favoriteSong) {
+	public void setFavoriteSong(Object[] favoriteSong) {
 		this.favoriteSong = favoriteSong;
 	}
 

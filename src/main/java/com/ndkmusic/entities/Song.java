@@ -35,17 +35,14 @@ public class Song extends BaseEntity {
 	@Column
 	private Long totalListen;
 
-//	cascade = CascadeType.ALL để tự động cập nhật bảng trung gian
-	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "song_album", joinColumns = @JoinColumn(name = "song_id"), inverseJoinColumns = @JoinColumn(name = "album_id"))
+	@ManyToMany(mappedBy = "songs", cascade = CascadeType.ALL)
 	private List<Album> albums = new ArrayList<Album>();
 
-	@ManyToMany(cascade = CascadeType.ALL)
+	@ManyToMany
 	@JoinTable(name = "song_artist", joinColumns = @JoinColumn(name = "song_id"), inverseJoinColumns = @JoinColumn(name = "artist_id"))
 	private List<Artist> songArtists = new ArrayList<Artist>();
 
-	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "song_play_list", joinColumns = @JoinColumn(name = "song_id"), inverseJoinColumns = @JoinColumn(name = "play_list_id"))
+	@ManyToMany(mappedBy = "songs")
 	private List<PlayList> playLists = new ArrayList<PlayList>();
 
 	@ManyToOne

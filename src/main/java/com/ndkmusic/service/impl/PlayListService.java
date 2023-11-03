@@ -1,10 +1,15 @@
 package com.ndkmusic.service.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.ndkmusic.converter.PlayListConverter;
 import com.ndkmusic.dto.PlayListDTO;
+import com.ndkmusic.dto.PlaylistSong;
 import com.ndkmusic.entities.PlayList;
 import com.ndkmusic.entities.Song;
 import com.ndkmusic.entities.User;
@@ -29,8 +34,8 @@ public class PlayListService implements IPlayListService {
 	private PlayListConverter playListConverter;
 
 	@Override
-	public PlayListDTO save(PlayListDTO playListDTO) {
-		PlayList playList = new PlayList();
+	public PlaylistSong save(PlayListDTO playListDTO) {
+		PlayList playList = null;
 		if (playListDTO.getId() != null) {
 			PlayList oldPlaylistEntity = playListRepository.findOneById(playListDTO.getId());
 			playList = playListConverter.toEntity(playListDTO, oldPlaylistEntity);
@@ -38,12 +43,43 @@ public class PlayListService implements IPlayListService {
 			playList = playListConverter.toEntity(playListDTO);
 		}
 		User user = userRepository.findOneByEmail(playListDTO.getEmailUser());
-		Song song = songRepository.findOneByTitle(playListDTO.getFavoriteSong());
-		playList.getSongs().add(song);
-		song.getPlayLists().add(playList);
+		for (Object favoriteSong : playListDTO.getFavoriteSong()) {
+			Song song = songRepository.findOneByTitle(favoriteSong.toString());
+			playList.getSongs().add(song);
+		}
 		playList.setUser(user);
 		playListRepository.save(playList);
 		return playListConverter.toDTO(playList);
+	}
+
+	@Override
+	public List<PlaylistSong> findAll(Pageable pageable) {
+		List<PlaylistSong> results = new ArrayList<PlaylistSong>();
+		List<PlayList> playlists = playListRepository.findAll(pageable).getContent();
+		for (PlayList playList : playlists) {
+			results.add(playListConverter.toDTO(playList));
+		}
+		return results;
+	}
+
+	@Override
+	public int totalItem() {
+		return (int) playListRepository.count();
+	}
+
+	@Override
+	public List<PlaylistSong> findOneById(long id) {
+		List<PlaylistSong> results = new ArrayList<PlaylistSong>();
+		PlayList playList = playListRepository.findOneById(id);
+		results.add(playListConverter.toDTO(playList));
+		return results;
+	}
+
+	@Override
+	public void delete(long[] ids) {
+		for (long id : ids) {
+			playListRepository.deleteById(id);
+		}
 	}
 
 }

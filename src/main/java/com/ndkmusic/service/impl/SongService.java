@@ -62,13 +62,14 @@ public class SongService implements ISongService {
 				}
 			}
 			if (!song.getAlbums().contains(album)) {
+				album.getSongs().add(song);
 				song.getAlbums().add(album);
-
 			}
 		} else {
 			for (Object album : songDTO.getAlbums()) {
 				Album albumEntity = albumRepository.findOneByName(album.toString());
 				if (!song.getAlbums().contains(albumEntity)) {
+					albumEntity.getSongs().add(song);
 					song.getAlbums().add(albumEntity);
 				}
 //				add artist if song in a album

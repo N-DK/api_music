@@ -3,9 +3,10 @@ package com.ndkmusic.entities;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -17,9 +18,10 @@ public class PlayList extends BaseEntity {
 	private String name;
 
 	@Column(name = "favorite_song")
-	private String favoriteSong;
+	private Object[] favoriteSong;
 
-	@ManyToMany(mappedBy = "playLists", cascade = CascadeType.ALL)
+	@ManyToMany
+	@JoinTable(name = "song_play_list", joinColumns = @JoinColumn(name = "play_list_id"), inverseJoinColumns = @JoinColumn(name = "song_id"))
 	private List<Song> songs = new ArrayList<Song>();
 
 	@ManyToOne
@@ -33,11 +35,11 @@ public class PlayList extends BaseEntity {
 		this.name = name;
 	}
 
-	public String getFavoriteSong() {
+	public Object[] getFavoriteSong() {
 		return favoriteSong;
 	}
 
-	public void setFavoriteSong(String favoriteSong) {
+	public void setFavoriteSong(Object[] favoriteSong) {
 		this.favoriteSong = favoriteSong;
 	}
 

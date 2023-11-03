@@ -3,7 +3,6 @@ package com.ndkmusic.entities;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -33,10 +32,11 @@ public class Album extends BaseEntity {
 	@Column(name = "total_listen")
 	private Long totalListen;
 
-	@ManyToMany(mappedBy = "albums")
+	@ManyToMany
+	@JoinTable(name = "song_album", joinColumns = @JoinColumn(name = "album_id"), inverseJoinColumns = @JoinColumn(name = "song_id"))
 	private List<Song> songs = new ArrayList<Song>();
 
-	@ManyToMany(cascade = CascadeType.ALL)
+	@ManyToMany
 	@JoinTable(name = "album_artist", joinColumns = @JoinColumn(name = "album_id"), inverseJoinColumns = @JoinColumn(name = "artist_id"))
 	private List<Artist> albumArtists = new ArrayList<Artist>();
 
