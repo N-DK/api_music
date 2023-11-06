@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -23,6 +24,10 @@ public class PlayList extends BaseEntity {
 	@ManyToMany
 	@JoinTable(name = "song_play_list", joinColumns = @JoinColumn(name = "play_list_id"), inverseJoinColumns = @JoinColumn(name = "song_id"))
 	private List<Song> songs = new ArrayList<Song>();
+
+	@Column
+	@Lob
+	private String thumbnail;
 
 	@ManyToOne
 	private User user;
@@ -57,6 +62,14 @@ public class PlayList extends BaseEntity {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	public String getThumbnail() {
+		return thumbnail;
+	}
+
+	public void setThumbnail(String thumbnail) {
+		this.thumbnail = thumbnail;
 	}
 
 }

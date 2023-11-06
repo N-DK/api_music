@@ -27,6 +27,7 @@ public class PlayListConverter {
 		playList.setName(playListDTO.getName());
 		playList.setFavoriteSong(playListDTO.getFavoriteSong());
 		playList.setCreatedBy(playListDTO.getEmailUser());
+		playList.setThumbnail(playListDTO.getThumbnail());
 		return playList;
 	}
 
@@ -62,6 +63,7 @@ public class PlayListConverter {
 		playList.setName(playListDTO.getName());
 		playList.setFavoriteSong(playListDTO.getFavoriteSong());
 		playList.setModifiedBy(playListDTO.getEmailUser());
+		playList.setThumbnail(playListDTO.getThumbnail());
 		return playList;
 	}
 }
