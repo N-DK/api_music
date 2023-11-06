@@ -12,8 +12,6 @@ import static com.ndkmusic.utils.UploadToCloud.createLinkFromCloud;
 @Component
 public class ArtistConverter {
 	public Artist toEntity(ArtistDTO artistDTO) {
-		artistDTO.setProfilePath(createLinkFromCloud(artistDTO.getProfilePath(), "image",
-				"ndk_music/artist/avatar/" + artistDTO.getArtistName()));
 		Artist artist = new Artist();
 		artist.setName(artistDTO.getArtistName());
 		artist.setBirthday(artistDTO.getBirthday());

@@ -12,9 +12,11 @@ import com.ndkmusic.dto.PlayListDTO;
 import com.ndkmusic.dto.PlaylistSong;
 import com.ndkmusic.entities.PlayList;
 import com.ndkmusic.entities.Song;
+import com.ndkmusic.entities.Topic;
 import com.ndkmusic.entities.User;
 import com.ndkmusic.repository.PlayListRepository;
 import com.ndkmusic.repository.SongRepository;
+import com.ndkmusic.repository.TopicRepository;
 import com.ndkmusic.repository.UserRepository;
 import com.ndkmusic.service.IPlayListService;
 
@@ -29,6 +31,9 @@ public class PlayListService implements IPlayListService {
 
 	@Autowired
 	private UserRepository userRepository;
+	
+	@Autowired
+	private TopicRepository topicRepository;
 
 	@Autowired
 	private PlayListConverter playListConverter;
@@ -43,12 +48,17 @@ public class PlayListService implements IPlayListService {
 			playList = playListConverter.toEntity(playListDTO);
 		}
 		User user = userRepository.findOneByEmail(playListDTO.getEmailUser());
+		Topic topic = topicRepository.findOneByCode(playListDTO.getTopicCode());
 		for (Object favoriteSong : playListDTO.getFavoriteSong()) {
 			Song song = songRepository.findOneByTitle(favoriteSong.toString());
+			if(song == null) break;
 			playList.getSongs().add(song);
 		}
-		playList.setUser(user);
-		playListRepository.save(playList);
+		if(user != null && topic != null) {
+			playList.setUser(user);
+			playList.setTopic(topic);
+			playListRepository.save(playList);			
+		}
 		return playListConverter.toDTO(playList);
 	}
 

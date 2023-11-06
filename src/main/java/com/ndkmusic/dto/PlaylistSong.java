@@ -6,6 +6,7 @@ public class PlaylistSong extends AbstractDTO<PlayListDTO> {
 	private List<SongDTO> songs;
 	private String name;
 	private String thumbnail;
+	private String topic;
 
 	public PlaylistSong(List<SongDTO> songs, String name) {
 		super();
@@ -35,6 +36,14 @@ public class PlaylistSong extends AbstractDTO<PlayListDTO> {
 
 	public void setThumbnail(String thumbnail) {
 		this.thumbnail = thumbnail;
+	}
+
+	public String getTopic() {
+		return topic;
+	}
+
+	public void setTopic(String topic) {
+		this.topic = topic;
 	}
 
 }

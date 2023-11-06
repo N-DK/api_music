@@ -5,6 +5,7 @@ public class PlayListDTO extends AbstractDTO<PlayListDTO>{
 	private Object[] favoriteSong;
 	private String emailUser;
 	private String thumbnail;
+	private String topicCode;
 
 	public String getName() {
 		return name;
@@ -36,6 +37,14 @@ public class PlayListDTO extends AbstractDTO<PlayListDTO>{
 
 	public void setThumbnail(String thumbnail) {
 		this.thumbnail = thumbnail;
+	}
+
+	public String getTopicCode() {
+		return topicCode;
+	}
+
+	public void setTopicCode(String topicCode) {
+		this.topicCode = topicCode;
 	}
 
 }

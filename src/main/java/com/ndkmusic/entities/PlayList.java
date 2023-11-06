@@ -21,16 +21,29 @@ public class PlayList extends BaseEntity {
 	@Column(name = "favorite_song")
 	private Object[] favoriteSong;
 
-	@ManyToMany
-	@JoinTable(name = "song_play_list", joinColumns = @JoinColumn(name = "play_list_id"), inverseJoinColumns = @JoinColumn(name = "song_id"))
-	private List<Song> songs = new ArrayList<Song>();
-
 	@Column
 	@Lob
 	private String thumbnail;
 
 	@ManyToOne
+	@JoinColumn(name = "user_id")
 	private User user;
+
+	@ManyToOne
+	@JoinColumn(name = "topic_id")
+	private Topic topic;
+	
+	@ManyToMany
+	@JoinTable(name = "song_play_list", joinColumns = @JoinColumn(name = "play_list_id"), inverseJoinColumns = @JoinColumn(name = "song_id"))
+	private List<Song> songs = new ArrayList<Song>();
+
+	public Topic getTopic() {
+		return topic;
+	}
+
+	public void setTopic(Topic topic) {
+		this.topic = topic;
+	}
 
 	public String getName() {
 		return name;

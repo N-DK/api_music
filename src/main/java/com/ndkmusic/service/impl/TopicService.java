@@ -1,0 +1,50 @@
+package com.ndkmusic.service.impl;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+
+import com.ndkmusic.converter.TopicConverter;
+import com.ndkmusic.dto.TopicDTO;
+import com.ndkmusic.entities.Topic;
+import com.ndkmusic.repository.TopicRepository;
+import com.ndkmusic.service.ITopicService;
+
+@Service
+public class TopicService implements ITopicService{
+
+	@Autowired
+	private TopicRepository topicRepository;
+	
+	@Autowired
+	private TopicConverter topicConverter;
+	
+	
+	@Override
+	public TopicDTO save(TopicDTO topicDTO) {
+		Topic topic = topicConverter.toEntity(topicDTO);
+		topicRepository.save(topic);
+		return topicConverter.toDTO(topic);
+	}
+
+
+	@Override
+	public List<TopicDTO> findAll(Pageable pageable) {
+		List<TopicDTO> results = new ArrayList<TopicDTO>();
+		List<Topic> topics = topicRepository.findAll(pageable).getContent();
+		for (Topic topic : topics) {
+			results.add(topicConverter.toDTO(topic));
+		}
+		return results;
+	}
+
+
+	@Override
+	public int totalItem() {
+		return (int) topicRepository.count();
+	}
+	
+}
