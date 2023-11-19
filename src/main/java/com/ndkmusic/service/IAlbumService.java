@@ -10,6 +10,8 @@ public interface IAlbumService {
 	AlbumDTO save(AlbumDTO albumDTO);
 
 	List<AlbumDTO> findAll(Pageable pageable);
+	
+	List<AlbumDTO> findAll();
 
 	List<AlbumDTO> findOneById(long id);
 	

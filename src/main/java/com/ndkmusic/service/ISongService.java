@@ -13,6 +13,8 @@ public interface ISongService {
 
 	List<SongDTO> findAll(Pageable pageable);
 	
+	List<SongDTO> findAll();
+	
 	List<SongDTO> findOneById(long id);
 
 	int totalItem();

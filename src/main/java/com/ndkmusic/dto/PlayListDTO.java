@@ -1,10 +1,11 @@
 package com.ndkmusic.dto;
 
-public class PlayListDTO extends AbstractDTO<PlayListDTO>{
+public class PlayListDTO extends AbstractDTO<PlayListDTO> {
 	private String name;
 	private Object[] favoriteSong;
 	private String emailUser;
 	private String thumbnail;
+	private String preface;
 	private String topicCode;
 
 	public String getName() {
@@ -37,6 +38,14 @@ public class PlayListDTO extends AbstractDTO<PlayListDTO>{
 
 	public void setThumbnail(String thumbnail) {
 		this.thumbnail = thumbnail;
+	}
+
+	public String getPreface() {
+		return preface;
+	}
+
+	public void setPreface(String preface) {
+		this.preface = preface;
 	}
 
 	public String getTopicCode() {

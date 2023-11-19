@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.ndkmusic.converter.PlayListConverter;
 import com.ndkmusic.dto.PlayListDTO;
 import com.ndkmusic.dto.PlaylistSong;
+import com.ndkmusic.entities.Artist;
 import com.ndkmusic.entities.PlayList;
 import com.ndkmusic.entities.Song;
 import com.ndkmusic.entities.Topic;
@@ -31,7 +32,7 @@ public class PlayListService implements IPlayListService {
 
 	@Autowired
 	private UserRepository userRepository;
-	
+
 	@Autowired
 	private TopicRepository topicRepository;
 
@@ -40,7 +41,7 @@ public class PlayListService implements IPlayListService {
 
 	@Override
 	public PlaylistSong save(PlayListDTO playListDTO) {
-		PlayList playList = null;
+		PlayList playList;
 		if (playListDTO.getId() != null) {
 			PlayList oldPlaylistEntity = playListRepository.findOneById(playListDTO.getId());
 			playList = playListConverter.toEntity(playListDTO, oldPlaylistEntity);
@@ -51,14 +52,13 @@ public class PlayListService implements IPlayListService {
 		Topic topic = topicRepository.findOneByCode(playListDTO.getTopicCode());
 		for (Object favoriteSong : playListDTO.getFavoriteSong()) {
 			Song song = songRepository.findOneByTitle(favoriteSong.toString());
-			if(song == null) break;
-			playList.getSongs().add(song);
+			if (!playList.getSongs().contains(song)) {
+				playList.getSongs().add(song);
+			}
 		}
-		if(user != null && topic != null) {
-			playList.setUser(user);
-			playList.setTopic(topic);
-			playListRepository.save(playList);			
-		}
+		playList.setUser(user);
+		playList.setTopic(topic);
+		playListRepository.save(playList);
 		return playListConverter.toDTO(playList);
 	}
 
@@ -90,6 +90,28 @@ public class PlayListService implements IPlayListService {
 		for (long id : ids) {
 			playListRepository.deleteById(id);
 		}
+	}
+
+	@Override
+	public List<PlaylistSong> findAll(long artist_id) {
+		List<PlaylistSong> results = new ArrayList<PlaylistSong>();
+		List<PlayList> playlists = playListRepository.findAll();
+		for (PlayList playList : playlists) {
+			boolean isExistArist = false;
+			for (Song song : playList.getSongs()) {
+				for (Artist artist : song.getSongArtists()) {
+					if (artist.getId() == artist_id) {
+						isExistArist = true;
+					}
+				}
+			}
+			if (isExistArist)
+				results.add(playListConverter.toDTO(playList));
+			else {
+				return new ArrayList<PlaylistSong>();
+			}
+		}
+		return results;
 	}
 
 }

@@ -8,8 +8,10 @@ import com.ndkmusic.dto.TopicDTO;
 
 public interface ITopicService {
 	TopicDTO save(TopicDTO topicDTO);
-	
+
 	List<TopicDTO> findAll(Pageable pageable);
-	
+
+	List<TopicDTO> findOneById(long id);
+
 	int totalItem();
 }

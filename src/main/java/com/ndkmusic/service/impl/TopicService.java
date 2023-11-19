@@ -14,22 +14,22 @@ import com.ndkmusic.repository.TopicRepository;
 import com.ndkmusic.service.ITopicService;
 
 @Service
-public class TopicService implements ITopicService{
+public class TopicService implements ITopicService {
 
 	@Autowired
 	private TopicRepository topicRepository;
-	
+
 	@Autowired
 	private TopicConverter topicConverter;
-	
-	
+
 	@Override
 	public TopicDTO save(TopicDTO topicDTO) {
-		Topic topic = topicConverter.toEntity(topicDTO);
+		Topic topic = topicDTO.getId() != null
+				? topicConverter.toEntity(topicDTO, topicRepository.findOneById(topicDTO.getId()))
+				: topicConverter.toEntity(topicDTO);
 		topicRepository.save(topic);
 		return topicConverter.toDTO(topic);
 	}
-
 
 	@Override
 	public List<TopicDTO> findAll(Pageable pageable) {
@@ -41,10 +41,17 @@ public class TopicService implements ITopicService{
 		return results;
 	}
 
-
 	@Override
 	public int totalItem() {
 		return (int) topicRepository.count();
 	}
-	
+
+	@Override
+	public List<TopicDTO> findOneById(long id) {
+		List<TopicDTO> result = new ArrayList<TopicDTO>();
+		Topic topic = topicRepository.findOneById(id);
+		result.add(topicConverter.toDTO(topic));
+		return result;
+	}
+
 }

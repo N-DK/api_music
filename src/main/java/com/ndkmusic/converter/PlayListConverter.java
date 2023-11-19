@@ -11,22 +11,21 @@ import com.ndkmusic.dto.PlaylistSong;
 import com.ndkmusic.dto.SongDTO;
 import com.ndkmusic.entities.PlayList;
 import com.ndkmusic.entities.Song;
-import com.ndkmusic.repository.SongRepository;
 
 @Component
 public class PlayListConverter {
-	
-	@Autowired
-	private SongRepository songRepository;
-	
+
+//	@Autowired
+//	private SongRepository songRepository;
+
 	@Autowired
 	private SongConverter songConverter;
 
 	public PlayList toEntity(PlayListDTO playListDTO) {
 		PlayList playList = new PlayList();
 		playList.setName(playListDTO.getName());
-		playList.setFavoriteSong(playListDTO.getFavoriteSong());
 		playList.setThumbnail(playListDTO.getThumbnail());
+		playList.setPreface(playList.getPreface());
 		return playList;
 	}
 
@@ -42,11 +41,10 @@ public class PlayListConverter {
 //		playListDTO.setEmailUser(playList.getUser().getEmail());
 //		return playListDTO;
 //	}
-	
+
 	public PlaylistSong toDTO(PlayList playList) {
 		List<SongDTO> songs = new ArrayList<SongDTO>();
-		for (Object title : playList.getFavoriteSong()) {
-			Song song = songRepository.findOneByTitle(title.toString());
+		for (Song song : playList.getSongs()) {
 			songs.add(songConverter.toDTO(song));
 		}
 		PlaylistSong dto = new PlaylistSong(songs, playList.getName());
@@ -57,14 +55,15 @@ public class PlayListConverter {
 		dto.setCreatedDate(playList.getCreatedDate());
 		dto.setThumbnail(playList.getThumbnail());
 		dto.setTopic(playList.getTopic().getName());
+		dto.setPreface(playList.getPreface());
 		return dto;
 	}
 
 	public PlayList toEntity(PlayListDTO playListDTO, PlayList playList) {
 		playList.setName(playListDTO.getName());
-		playList.setFavoriteSong(playListDTO.getFavoriteSong());
 		playList.setModifiedBy(playListDTO.getEmailUser());
 		playList.setThumbnail(playListDTO.getThumbnail());
+		playList.setPreface(playListDTO.getPreface());
 		return playList;
 	}
 }

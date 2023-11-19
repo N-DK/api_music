@@ -18,9 +18,6 @@ public class PlayList extends BaseEntity {
 	@Column
 	private String name;
 
-	@Column(name = "favorite_song")
-	private Object[] favoriteSong;
-
 	@Column
 	@Lob
 	private String thumbnail;
@@ -32,7 +29,10 @@ public class PlayList extends BaseEntity {
 	@ManyToOne
 	@JoinColumn(name = "topic_id")
 	private Topic topic;
-	
+
+	@Column
+	private String preface;
+
 	@ManyToMany
 	@JoinTable(name = "song_play_list", joinColumns = @JoinColumn(name = "play_list_id"), inverseJoinColumns = @JoinColumn(name = "song_id"))
 	private List<Song> songs = new ArrayList<Song>();
@@ -51,14 +51,6 @@ public class PlayList extends BaseEntity {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public Object[] getFavoriteSong() {
-		return favoriteSong;
-	}
-
-	public void setFavoriteSong(Object[] favoriteSong) {
-		this.favoriteSong = favoriteSong;
 	}
 
 	public List<Song> getSongs() {
@@ -83,6 +75,14 @@ public class PlayList extends BaseEntity {
 
 	public void setThumbnail(String thumbnail) {
 		this.thumbnail = thumbnail;
+	}
+
+	public String getPreface() {
+		return preface;
+	}
+
+	public void setPreface(String preface) {
+		this.preface = preface;
 	}
 
 }

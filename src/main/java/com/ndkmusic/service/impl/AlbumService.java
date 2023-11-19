@@ -80,4 +80,14 @@ public class AlbumService implements IAlbumService {
 		}
 	}
 
+	@Override
+	public List<AlbumDTO> findAll() {
+		List<Album> albums = albumRepository.findAll();
+		List<AlbumDTO> result = new ArrayList<AlbumDTO>();
+		for (Album album : albums) {
+			result.add(albumConverter.toDTO(album));
+		}
+		return result;
+	}
+
 }

@@ -14,6 +14,8 @@ public interface IPlayListService {
 	
 	List<PlaylistSong> findOneById(long id);
 	
+	List<PlaylistSong> findAll(long artist_id);
+	
 	int totalItem();
 	
 	void delete(long[] ids);

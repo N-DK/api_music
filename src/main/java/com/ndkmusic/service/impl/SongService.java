@@ -115,4 +115,14 @@ public class SongService implements ISongService {
 		return result;
 	}
 
+	@Override
+	public List<SongDTO> findAll() {
+		List<SongDTO> results = new ArrayList<SongDTO>();
+		List<Song> listSongEntity = songRepository.findAll();
+		for (Song song : listSongEntity) {
+			results.add(songConverter.toDTO(song));
+		}
+		return results;
+	}
+
 }

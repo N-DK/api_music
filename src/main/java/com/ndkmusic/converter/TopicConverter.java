@@ -24,4 +24,10 @@ public class TopicConverter {
 		dto.setModifiedDate(topic.getModifiedDate());
 		return dto;
 	}
+	
+	public Topic toEntity(TopicDTO topicDTO, Topic topic) {
+		topic.setName(topicDTO.getName());
+		topic.setCode(topicDTO.getCode());
+		return topic;
+	}
 }
