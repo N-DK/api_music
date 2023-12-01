@@ -12,6 +12,8 @@ public interface ITopicService {
 	List<TopicDTO> findAll(Pageable pageable);
 
 	List<TopicDTO> findOneById(long id);
+	
+	void delete(long[] ids);
 
 	int totalItem();
 }

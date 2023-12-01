@@ -108,10 +108,23 @@ public class PlayListService implements IPlayListService {
 			if (isExistArist)
 				results.add(playListConverter.toDTO(playList));
 			else {
-				return new ArrayList<PlaylistSong>();
+				return results;
 			}
 		}
 		return results;
 	}
+
+	@Override
+	public List<PlaylistSong> findOneBySlug(String slug) {
+		List<PlaylistSong> results = new ArrayList<PlaylistSong>();
+		List<PlayList> playLists = playListRepository.findAll();
+		for(PlayList playList : playLists) {
+			if(playList.getTopic().getCode().equals(slug)) {
+				results.add(playListConverter.toDTO(playList));
+			}
+		}
+		return results;
+	}
+
 
 }

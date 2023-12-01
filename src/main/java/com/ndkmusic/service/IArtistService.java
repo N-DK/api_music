@@ -12,6 +12,8 @@ public interface IArtistService {
 	List<ArtistDTO> findOneById(Long id);
 
 	List<ArtistDTO> findAll(Pageable pageable);
+	
+	List<ArtistDTO> findAll();
 
 	List<Object> getSongs(Long id);
 

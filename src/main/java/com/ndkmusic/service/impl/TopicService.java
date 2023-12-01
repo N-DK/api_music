@@ -54,4 +54,12 @@ public class TopicService implements ITopicService {
 		return result;
 	}
 
+	@Override
+	public void delete(long[] ids) {
+		// TODO Auto-generated method stub
+		for(long id : ids) {
+			topicRepository.deleteById(id);
+		}
+	}
+
 }

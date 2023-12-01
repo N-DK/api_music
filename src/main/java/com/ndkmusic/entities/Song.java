@@ -44,6 +44,9 @@ public class Song extends BaseEntity {
 
 	@ManyToMany(mappedBy = "songs")
 	private List<PlayList> playLists = new ArrayList<PlayList>();
+	
+	@ManyToMany(mappedBy = "songs")
+	private List<User> users = new ArrayList<User>();
 
 	@ManyToOne
 	@JoinColumn(name = "genres_id")
@@ -128,5 +131,23 @@ public class Song extends BaseEntity {
 	public void setPlayLists(List<PlayList> playLists) {
 		this.playLists = playLists;
 	}
+
+	public List<User> getUsers() {
+		return users;
+	}
+
+	public void setUsers(List<User> users) {
+		this.users = users;
+	}
+
+	public Genres getGenresSong() {
+		return genresSong;
+	}
+
+	public void setGenresSong(Genres genresSong) {
+		this.genresSong = genresSong;
+	}
+	
+	
 
 }

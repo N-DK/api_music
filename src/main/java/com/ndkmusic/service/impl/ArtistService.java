@@ -93,4 +93,14 @@ public class ArtistService implements IArtistService {
 
 	}
 
+	@Override
+	public List<ArtistDTO> findAll() {
+		List<Artist> artists = artistRepository.findAll();
+		List<ArtistDTO> results = new ArrayList<ArtistDTO>();
+		for (Artist artist : artists) {
+			results.add(artistConverter.toDTO(artist));
+		}
+		return results;
+	}
+
 }

@@ -9,14 +9,16 @@ import com.ndkmusic.dto.PlaylistSong;
 
 public interface IPlayListService {
 	PlaylistSong save(PlayListDTO playListDTO);
-	
+
 	List<PlaylistSong> findAll(Pageable pageable);
-	
+
 	List<PlaylistSong> findOneById(long id);
-	
+
+	List<PlaylistSong> findOneBySlug(String slug);
+
 	List<PlaylistSong> findAll(long artist_id);
-	
+
 	int totalItem();
-	
+
 	void delete(long[] ids);
 }

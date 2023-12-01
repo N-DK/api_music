@@ -30,24 +30,48 @@ public class SearchService implements ISearchService {
 	public void findAll(String keyword, List<Object> results, Pageable pageable, String query) {
 		switch (keyword) {
 		case "song":
-			for (SongDTO song : songService.findAll(pageable)) {
+			for (SongDTO song : songService.findAll()) {
 				if (song.getTitle().contains(query))
 					results.add(song);
 			}
 			break;
 		case "album":
-			for (AlbumDTO album : albumService.findAll(pageable)) {
+			for (AlbumDTO album : albumService.findAll()) {
 				if (album.getName().contains(query))
 					results.add(album);
 			}
 			break;
 		case "artist":
-			for (ArtistDTO artist : artistService.findAll(pageable)) {
+			for (ArtistDTO artist : artistService.findAll()) {
 				if (artist.getArtistName().contains(query))
 					results.add(artist);
 			}
 			break;
-
+		default:
+			throw new IllegalArgumentException("Unexpected value: " + keyword);
+		}
+	}
+	
+	public void findAll(String keyword, List<Object> results, String query) {
+		switch (keyword) {
+		case "song":
+			for (SongDTO song : songService.findAll()) {
+				if (song.getTitle().contains(query))
+					results.add(song);
+			}
+			break;
+		case "album":
+			for (AlbumDTO album : albumService.findAll()) {
+				if (album.getName().contains(query))
+					results.add(album);
+			}
+			break;
+		case "artist":
+			for (ArtistDTO artist : artistService.findAll()) {
+				if (artist.getArtistName().contains(query))
+					results.add(artist);
+			}
+			break;
 		default:
 			throw new IllegalArgumentException("Unexpected value: " + keyword);
 		}

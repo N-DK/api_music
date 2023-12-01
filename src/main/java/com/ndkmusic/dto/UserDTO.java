@@ -3,15 +3,19 @@ package com.ndkmusic.dto;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
-public class UserDTO extends AbstractDTO<UserDTO>{
+public class UserDTO extends AbstractDTO<UserDTO> {
 	private String nickName;
 	private String email;
 	private Date birthday;
 	private String passwrord;
 	private String avatar;
 	private String roleCode;
+	private List<Long> songs = new ArrayList<Long>();
+	private List<Long> playlistSongs = new ArrayList<Long>();
 
 	public String getNickName() {
 		return nickName;
@@ -65,6 +69,22 @@ public class UserDTO extends AbstractDTO<UserDTO>{
 
 	public void setRoleCode(String roleCode) {
 		this.roleCode = roleCode;
+	}
+
+	public List<Long> getSongs() {
+		return songs;
+	}
+
+	public void setSongs(List<Long> songs) {
+		this.songs = songs;
+	}
+
+	public List<Long> getPlaylistSongs() {
+		return playlistSongs;
+	}
+
+	public void setPlaylistSongs(List<Long> playlistSongs) {
+		this.playlistSongs = playlistSongs;
 	}
 
 }
