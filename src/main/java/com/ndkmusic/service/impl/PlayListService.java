@@ -56,8 +56,12 @@ public class PlayListService implements IPlayListService {
 				playList.getSongs().add(song);
 			}
 		}
-		playList.setUser(user);
-		playList.setTopic(topic);
+		if (user != null) {
+			playList.setUser(user);
+		}
+		if (topic != null) {
+			playList.setTopic(topic);
+		}
 		playListRepository.save(playList);
 		return playListConverter.toDTO(playList);
 	}
@@ -118,13 +122,28 @@ public class PlayListService implements IPlayListService {
 	public List<PlaylistSong> findOneBySlug(String slug) {
 		List<PlaylistSong> results = new ArrayList<PlaylistSong>();
 		List<PlayList> playLists = playListRepository.findAll();
-		for(PlayList playList : playLists) {
-			if(playList.getTopic().getCode().equals(slug)) {
-				results.add(playListConverter.toDTO(playList));
+		for (PlayList playList : playLists) {
+			if (playList.getTopic() != null) {
+				if (playList.getTopic().getCode().equals(slug)) {
+					results.add(playListConverter.toDTO(playList));
+				}
 			}
 		}
 		return results;
 	}
 
+	@Override
+	public List<PlaylistSong> findByIdUser(long id) {
+		List<PlaylistSong> results = new ArrayList<PlaylistSong>();
+		List<PlayList> playLists = playListRepository.findAll();
+		for (PlayList playList : playLists) {
+			if (playList.getUser() != null) {
+				if (playList.getUser().getId() == id) {
+					results.add(playListConverter.toDTO(playList));
+				}
+			}
+		}
+		return results;
+	}
 
 }

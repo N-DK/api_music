@@ -42,6 +42,17 @@ public class Artist extends BaseEntity {
 	@ManyToMany(mappedBy = "albumArtists")
 	private List<Album> albums = new ArrayList<Album>();
 
+	@ManyToMany(mappedBy = "arists")
+	private List<User> users = new ArrayList<User>();
+
+	public List<User> getUsers() {
+		return users;
+	}
+
+	public void setUsers(List<User> users) {
+		this.users = users;
+	}
+
 	public String getName() {
 		return name;
 	}

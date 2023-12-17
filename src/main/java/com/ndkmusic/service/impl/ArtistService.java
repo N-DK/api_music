@@ -14,7 +14,9 @@ import com.ndkmusic.dto.ArtistDTO;
 import com.ndkmusic.entities.Album;
 import com.ndkmusic.entities.Artist;
 import com.ndkmusic.entities.Song;
+import com.ndkmusic.entities.User;
 import com.ndkmusic.repository.ArtistRepository;
+import com.ndkmusic.repository.UserRepository;
 import com.ndkmusic.service.IArtistService;
 
 @Service
@@ -31,6 +33,9 @@ public class ArtistService implements IArtistService {
 
 	@Autowired
 	private AlbumConverter albumConverter;
+
+	@Autowired
+	private UserRepository userRepository;
 
 	@Override
 	public ArtistDTO save(ArtistDTO artistDTO) {
@@ -101,6 +106,28 @@ public class ArtistService implements IArtistService {
 			results.add(artistConverter.toDTO(artist));
 		}
 		return results;
+	}
+
+	@Override
+	public ArtistDTO subscribe(Long id, Long user_id) {
+		Artist artist = artistRepository.findOneById(id);
+		User user = userRepository.findOneById(user_id);
+		artist.setNumberFollow(artist.getNumberFollow() + 1);
+		user.getArists().add(artist);
+		userRepository.save(user);
+		artistRepository.save(artist);
+		return artistConverter.toDTO(artist);
+	}
+
+	@Override
+	public ArtistDTO unsubscribe(Long id, Long user_id) {
+		Artist artist = artistRepository.findOneById(id);
+		User user = userRepository.findOneById(user_id);
+		artist.setNumberFollow(artist.getNumberFollow() - 1);
+		user.getArists().remove(artist);
+		userRepository.save(user);
+		artistRepository.save(artist);
+		return artistConverter.toDTO(artist);
 	}
 
 }

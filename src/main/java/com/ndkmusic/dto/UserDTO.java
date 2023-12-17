@@ -15,7 +15,8 @@ public class UserDTO extends AbstractDTO<UserDTO> {
 	private String avatar;
 	private String roleCode;
 	private List<Long> songs = new ArrayList<Long>();
-	private List<Long> playlistSongs = new ArrayList<Long>();
+	private List<Long> playlist = new ArrayList<Long>();
+	private List<Long> album = new ArrayList<Long>();
 
 	public String getNickName() {
 		return nickName;
@@ -79,12 +80,20 @@ public class UserDTO extends AbstractDTO<UserDTO> {
 		this.songs = songs;
 	}
 
-	public List<Long> getPlaylistSongs() {
-		return playlistSongs;
+	public List<Long> getAlbum() {
+		return album;
 	}
 
-	public void setPlaylistSongs(List<Long> playlistSongs) {
-		this.playlistSongs = playlistSongs;
+	public void setAlbum(List<Long> album) {
+		this.album = album;
+	}
+
+	public List<Long> getPlaylist() {
+		return playlist;
+	}
+
+	public void setPlaylist(List<Long> playlist) {
+		this.playlist = playlist;
 	}
 
 }

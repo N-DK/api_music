@@ -17,7 +17,8 @@ public interface IPlayListService {
 	List<PlaylistSong> findOneBySlug(String slug);
 
 	List<PlaylistSong> findAll(long artist_id);
-
+	
+	List<PlaylistSong> findByIdUser(long id);
 	int totalItem();
 
 	void delete(long[] ids);

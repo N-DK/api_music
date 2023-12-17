@@ -39,6 +39,9 @@ public class Album extends BaseEntity {
 	@ManyToMany
 	@JoinTable(name = "album_artist", joinColumns = @JoinColumn(name = "album_id"), inverseJoinColumns = @JoinColumn(name = "artist_id"))
 	private List<Artist> albumArtists = new ArrayList<Artist>();
+	
+	@ManyToMany(mappedBy = "albums")
+	private List<User> user = new ArrayList<User>();
 
 	@ManyToOne
 	@JoinColumn(name = "genres_id")

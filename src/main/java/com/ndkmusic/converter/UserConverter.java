@@ -1,5 +1,7 @@
 package com.ndkmusic.converter;
 
+import static com.ndkmusic.utils.UploadToCloud.*;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
@@ -18,6 +20,8 @@ public class UserConverter {
 	private PasswordEncoder passwordEncoder;
 
 	public User toEntity(UserDTO userDTO) {
+		userDTO.setAvatar(
+				createLinkFromCloud(userDTO.getAvatar(), "video", "ndk_music/avatar/" + userDTO.getNickName()));
 		User user = new User();
 		user.setNickName(userDTO.getNickName());
 		user.setBirthday(userDTO.getBirthday());
@@ -40,22 +44,31 @@ public class UserConverter {
 		userDTO.setPasswrord(user.getPassword());
 		userDTO.setId(user.getId());
 		userDTO.setCreatedDate(user.getCreatedDate());
-		userDTO.setRoleCode(user.getRole().getCode());
 		for (Song song : user.getSongs()) {
 			userDTO.getSongs().add(song.getId());
 		}
 		for (PlayList playList : user.getPlayLists()) {
-			userDTO.getPlaylistSongs().add(playList.getId());
+			userDTO.getPlaylist().add(playList.getId());
 		}
 		return userDTO;
 	}
 
 	public User toEntity(UserDTO userDTO, User user) {
-		user.setNickName(userDTO.getNickName());
-		user.setBirthday(userDTO.getBirthday());
-		user.setAvatar(userDTO.getAvatar());
-		user.setEmail(userDTO.getEmail());
-		user.setPassword(passwordEncoder.encode(userDTO.getPasswrord()));
+
+		if (userDTO.getNickName() != null) {
+			user.setNickName(userDTO.getNickName());
+		}
+		if (userDTO.getBirthday() != null) {
+			user.setBirthday(userDTO.getBirthday());
+		}
+		if (userDTO.getAvatar() != null) {
+			userDTO.setAvatar(createSecureLinkFromBlobURL(userDTO.getAvatar(), "image",
+					"ndk_music/avatar/" + user.getNickName()));
+			user.setAvatar(userDTO.getAvatar());
+		}
+		if (userDTO.getEmail() != null) {
+			user.setEmail(userDTO.getEmail());
+		}
 		return user;
 	}
 }

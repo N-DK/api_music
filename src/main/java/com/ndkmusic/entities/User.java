@@ -49,6 +49,42 @@ public class User extends BaseEntity implements UserDetails {
 	@JoinTable(name = "user_songs", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "song_id"))
 	private List<Song> songs = new ArrayList<Song>();
 
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(name = "user_albums", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "album_id"))
+	private List<Album> albums = new ArrayList<Album>();
+
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(name = "user_playlist", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "playlist_id"))
+	private List<PlayList> userPlayLists = new ArrayList<PlayList>();
+
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(name = "user_artist", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "artist_id"))
+	private List<Artist> arists = new ArrayList<Artist>();
+
+	public List<Artist> getArists() {
+		return arists;
+	}
+
+	public void setArists(List<Artist> arists) {
+		this.arists = arists;
+	}
+
+	public List<PlayList> getUserPlayLists() {
+		return userPlayLists;
+	}
+
+	public void setUserPlayLists(List<PlayList> userPlayLists) {
+		this.userPlayLists = userPlayLists;
+	}
+
+	public List<Album> getAlbums() {
+		return albums;
+	}
+
+	public void setAlbums(List<Album> albums) {
+		this.albums = albums;
+	}
+
 	@ManyToOne
 	private Role role;
 

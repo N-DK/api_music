@@ -17,7 +17,7 @@ public class SongConverter {
 
 	public Song toEntity(SongDTO songDTO) {
 		songDTO.setAudioUrl(
-				createLinkFromCloud(songDTO.getAudioUrl(), "video", "ndk_music/song/" + songDTO.getTitle()));
+				createLinkFromCloud(songDTO.getAudioUrl(), "image", "ndk_music/song/" + songDTO.getTitle()));
 		Song song = new Song();
 		song.setTitle(songDTO.getTitle());
 		song.setLyric(songDTO.getLyric());

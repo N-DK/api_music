@@ -23,7 +23,8 @@ public class PlayListConverter {
 	public PlayList toEntity(PlayListDTO playListDTO) {
 		PlayList playList = new PlayList();
 		playList.setName(playListDTO.getName());
-		playList.setThumbnail(playListDTO.getThumbnail());
+		playList.setThumbnail(playListDTO.getThumbnail().equals("") ? "https://photo-zmp3.zmdcdn.me/album_default.png"
+				: playListDTO.getThumbnail());
 		return playList;
 	}
 
@@ -39,12 +40,14 @@ public class PlayListConverter {
 		dto.setCreatedBy(playList.getUser().getEmail());
 		dto.setCreatedDate(playList.getCreatedDate());
 		dto.setThumbnail(playList.getThumbnail());
-		dto.setTopic(playList.getTopic().getName());
+		if (playList.getTopic() != null) {
+			dto.setTopic(playList.getTopic().getName());
+		}
 		List<SongArtistId> artists = new ArrayList<SongArtistId>();
-		for(Song song : playList.getSongs()) {
-			for(Artist artist : song.getSongArtists()) {
+		for (Song song : playList.getSongs()) {
+			for (Artist artist : song.getSongArtists()) {
 				SongArtistId songArtistId = new SongArtistId(artist.getId(), artist.getName());
-				if(!artists.contains(songArtistId)) {
+				if (!artists.contains(songArtistId)) {
 					artists.add(songArtistId);
 				}
 			}
@@ -54,8 +57,12 @@ public class PlayListConverter {
 	}
 
 	public PlayList toEntity(PlayListDTO playListDTO, PlayList playList) {
-		playList.setName(playListDTO.getName());
-		playList.setModifiedBy(playListDTO.getEmailUser());
+		if (playListDTO.getName() != null) {
+			playList.setName(playListDTO.getName());
+		}
+		if (playListDTO.getThumbnail() != null) {
+			playList.setModifiedBy(playListDTO.getEmailUser());
+		}
 		playList.setThumbnail(playListDTO.getThumbnail());
 		return playList;
 	}

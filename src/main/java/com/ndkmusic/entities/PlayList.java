@@ -34,6 +34,17 @@ public class PlayList extends BaseEntity {
 	@JoinTable(name = "song_play_list", joinColumns = @JoinColumn(name = "play_list_id"), inverseJoinColumns = @JoinColumn(name = "song_id"))
 	private List<Song> songs = new ArrayList<Song>();
 
+	@ManyToMany(mappedBy = "userPlayLists")
+	private List<User> users = new ArrayList<User>();
+
+	public List<User> getUsers() {
+		return users;
+	}
+
+	public void setUsers(List<User> users) {
+		this.users = users;
+	}
+
 	public Topic getTopic() {
 		return topic;
 	}

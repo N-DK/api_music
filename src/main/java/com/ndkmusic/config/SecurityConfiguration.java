@@ -29,24 +29,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private AuthenticationEntryPoint authenticationEntryPoint;
 
-//	@Autowired
-//	private PasswordEncoder passwordEncoder;
-	
 	@Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//        auth
-//            .inMemoryAuthentication()
-//            .withUser("ndk@gmail.com")
-//            .password(passwordEncoder().encode("ngodangkhoa@123"))
-//            .roles("USER");
-        auth.userDetailsService(userService).passwordEncoder(passwordEncoder());
-    }
-	
+	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+		auth.userDetailsService(userService).passwordEncoder(passwordEncoder());
+	}
+
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
-	
+
 	@Bean
 	@Override
 	public AuthenticationManager authenticationManagerBean() throws Exception {
@@ -57,8 +49,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().exceptionHandling()
 				.authenticationEntryPoint(authenticationEntryPoint).and()
-				.authorizeRequests((request) -> request.antMatchers("/api/user/login").permitAll()
-						.antMatchers("/**").permitAll().anyRequest().authenticated())
+				.authorizeRequests((request) -> request.antMatchers("/api/user/login", "/api/user").permitAll().antMatchers("/**")
+						.permitAll().anyRequest().authenticated())
 				.addFilterBefore(new JWTAuthenticationFilter(userService, jwtTokenHelper),
 						UsernamePasswordAuthenticationFilter.class);
 		http.csrf().disable().cors().and().headers().frameOptions().disable();
