@@ -6,6 +6,8 @@ public class PlayListDTO extends AbstractDTO<PlayListDTO> {
 	private String emailUser;
 	private String thumbnail;
 	private String topicCode;
+	private String subTitle;
+	private String preface;
 
 	public String getName() {
 		return name;
@@ -45,6 +47,22 @@ public class PlayListDTO extends AbstractDTO<PlayListDTO> {
 
 	public void setTopicCode(String topicCode) {
 		this.topicCode = topicCode;
+	}
+
+	public String getSubTitle() {
+		return subTitle;
+	}
+
+	public void setSubTitle(String subTitle) {
+		this.subTitle = subTitle;
+	}
+
+	public String getPreface() {
+		return preface;
+	}
+
+	public void setPreface(String preface) {
+		this.preface = preface;
 	}
 
 }

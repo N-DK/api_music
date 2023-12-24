@@ -1,8 +1,9 @@
-	package com.ndkmusic.service.impl;
+package com.ndkmusic.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ndkmusic.api.output.UserOutput;
 import com.ndkmusic.converter.UserConverter;
 import com.ndkmusic.dto.UserDTO;
 import com.ndkmusic.entities.Album;
@@ -77,7 +78,7 @@ public class UserService implements IUserService {
 	}
 
 	@Override
-	public void delete(Long id, Long typeId, String type) {
+	public UserOutput delete(Long id, Long typeId, String type) {
 		User user = userRepository.findOneById(id);
 		if (type.equals("album")) {
 			Album album = albumRepository.findOneById(typeId);
@@ -87,12 +88,14 @@ public class UserService implements IUserService {
 			user.getSongs().remove(song);
 		} else if (type.equals("playlist")) {
 			PlayList playList = playListRepository.findOneById(typeId);
-			if(playList.getUser().getId() == id) {
+			if (playList.getUser().getId() == id) {
 				playListRepository.deleteById(typeId);
 			}
 			user.getUserPlayLists().remove(playList);
 		}
 		userRepository.save(user);
+		UserOutput userOutput = userConverter.toOutput(user);
+		return userOutput;
 	}
 
 }

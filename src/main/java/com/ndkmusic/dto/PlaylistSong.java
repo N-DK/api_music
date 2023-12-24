@@ -7,7 +7,9 @@ public class PlaylistSong extends AbstractDTO<PlayListDTO> {
 	private String name;
 	private String thumbnail;
 	private String topic;
-	private List<SongArtistId> artists;
+	private String subTitle;
+	private String preface;
+	private List<ArtistDTO> artists;
 
 	public PlaylistSong(List<SongDTO> songs, String name) {
 		super();
@@ -47,12 +49,29 @@ public class PlaylistSong extends AbstractDTO<PlayListDTO> {
 		this.topic = topic;
 	}
 
-	public List<SongArtistId> getArtists() {
+
+	public String getSubTitle() {
+		return subTitle;
+	}
+
+	public void setSubTitle(String subTitle) {
+		this.subTitle = subTitle;
+	}
+
+	public List<ArtistDTO> getArtists() {
 		return artists;
 	}
 
-	public void setArtists(List<SongArtistId> artists) {
+	public void setArtists(List<ArtistDTO> artists) {
 		this.artists = artists;
+	}
+
+	public String getPreface() {
+		return preface;
+	}
+
+	public void setPreface(String preface) {
+		this.preface = preface;
 	}
 
 }

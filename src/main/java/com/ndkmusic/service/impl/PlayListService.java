@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.ndkmusic.api.output.PlaylistToCategoryOutput;
 import com.ndkmusic.converter.PlayListConverter;
 import com.ndkmusic.dto.PlayListDTO;
 import com.ndkmusic.dto.PlaylistSong;
@@ -50,12 +51,14 @@ public class PlayListService implements IPlayListService {
 		}
 		User user = userRepository.findOneByEmail(playListDTO.getEmailUser());
 		Topic topic = topicRepository.findOneByCode(playListDTO.getTopicCode());
+		List<Song> songs = new ArrayList<Song>();
 		for (Object favoriteSong : playListDTO.getFavoriteSong()) {
 			Song song = songRepository.findOneByTitle(favoriteSong.toString());
-			if (!playList.getSongs().contains(song)) {
-				playList.getSongs().add(song);
+			if(!songs.contains(song)) {
+				songs.add(song);
 			}
 		}
+		playList.setSongs(songs);
 		if (user != null) {
 			playList.setUser(user);
 		}
@@ -144,6 +147,83 @@ public class PlayListService implements IPlayListService {
 			}
 		}
 		return results;
+	}
+
+	@Override
+	public List<PlaylistToCategoryOutput> findAllGenresByTopic(String topic) {
+		List<PlaylistToCategoryOutput> resutls = new ArrayList<PlaylistToCategoryOutput>();
+		List<PlayList> playLists = playListRepository.findByTopic(topicRepository.findOneByCode(topic));
+		List<String> categories = new ArrayList<String>();
+		for (PlayList playList : playLists) {
+			if (!categories.contains(playList.getSubTitle())) {
+				categories.add(playList.getSubTitle());
+			}
+		}
+
+		for (String category : categories) {
+			List<PlaylistSong> playlistSongs = new ArrayList<PlaylistSong>();
+			for (PlayList playList : playLists) {
+				if (playList.getSubTitle().equals(category)) {
+					playlistSongs.add(playListConverter.toDTO(playList));
+				}
+			}
+			PlaylistToCategoryOutput output = new PlaylistToCategoryOutput(category, playlistSongs);
+			resutls.add(output);
+		}
+		return resutls;
+	}
+
+	@Override
+	public List<PlaylistSong> findByIdArtist(long id) {
+		List<PlaylistSong> results = new ArrayList<PlaylistSong>();
+		List<PlayList> playLists = playListRepository.findAll();
+		for (PlayList playList : playLists) {
+			for (Song song : playList.getSongs()) {
+				for (Artist artist : song.getSongArtists()) {
+					if (artist.getId() == id && playList.getPreface() != null) {
+						if (!contains(results, playListConverter.toDTO(playList))) {
+							results.add(playListConverter.toDTO(playList));
+						}
+					}
+				}
+			}
+		}
+		return results;
+	}
+
+	private boolean contains(List<PlaylistSong> results, PlaylistSong playlist) {
+		for (PlaylistSong playlistSong : results) {
+			if (playlistSong.getId() == playlist.getId()) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	@Override
+	public void deteleSongInPlaylist(long userId, long songId, long playlistId) {
+		PlayList playList = playListRepository.findOneById(playlistId);
+		if (playList.getUser() != null) {
+			if (playList.getUser().getId() == userId) {
+				playList.getSongs().removeIf(song -> song.getId() == songId);
+				playListRepository.save(playList);
+			}
+		}
+	}
+
+	@Override
+	public PlaylistSong add(PlayListDTO playListDTO) {
+		PlayList oldPlaylistEntity = playListRepository.findOneById(playListDTO.getId());
+		PlayList playList = playListConverter.toEntity(playListDTO, oldPlaylistEntity);
+		for (Object favoriteSong : playListDTO.getFavoriteSong()) {
+			Song song = songRepository.findOneByTitle(favoriteSong.toString());
+			if(!playList.getSongs().contains(song)) {
+				playList.getSongs().add(song);
+			}
+		}
+		playListRepository.save(playList);
+		return playListConverter.toDTO(playList);
 	}
 
 }

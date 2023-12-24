@@ -6,9 +6,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.ndkmusic.dto.ArtistDTO;
 import com.ndkmusic.dto.PlayListDTO;
 import com.ndkmusic.dto.PlaylistSong;
-import com.ndkmusic.dto.SongArtistId;
 import com.ndkmusic.dto.SongDTO;
 import com.ndkmusic.entities.Artist;
 import com.ndkmusic.entities.PlayList;
@@ -20,9 +20,23 @@ public class PlayListConverter {
 	@Autowired
 	private SongConverter songConverter;
 
+	@Autowired
+	private ArtistConverter artistConverter;
+
+	private boolean contains(List<ArtistDTO> artists, ArtistDTO artist) {
+		for (ArtistDTO artistDTO : artists) {
+			if (artistDTO.getId() == artist.getId()) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	public PlayList toEntity(PlayListDTO playListDTO) {
 		PlayList playList = new PlayList();
+		playList.setPreface(playListDTO.getPreface());
 		playList.setName(playListDTO.getName());
+		playList.setSubTitle(playListDTO.getSubTitle());
 		playList.setThumbnail(playListDTO.getThumbnail().equals("") ? "https://photo-zmp3.zmdcdn.me/album_default.png"
 				: playListDTO.getThumbnail());
 		return playList;
@@ -40,15 +54,16 @@ public class PlayListConverter {
 		dto.setCreatedBy(playList.getUser().getEmail());
 		dto.setCreatedDate(playList.getCreatedDate());
 		dto.setThumbnail(playList.getThumbnail());
+		dto.setSubTitle(playList.getSubTitle());
+		dto.setPreface(playList.getPreface());
 		if (playList.getTopic() != null) {
 			dto.setTopic(playList.getTopic().getName());
 		}
-		List<SongArtistId> artists = new ArrayList<SongArtistId>();
+		List<ArtistDTO> artists = new ArrayList<ArtistDTO>();
 		for (Song song : playList.getSongs()) {
 			for (Artist artist : song.getSongArtists()) {
-				SongArtistId songArtistId = new SongArtistId(artist.getId(), artist.getName());
-				if (!artists.contains(songArtistId)) {
-					artists.add(songArtistId);
+				if (!contains(artists, artistConverter.toDTO(artist))) {
+					artists.add(artistConverter.toDTO(artist));
 				}
 			}
 		}
@@ -60,8 +75,14 @@ public class PlayListConverter {
 		if (playListDTO.getName() != null) {
 			playList.setName(playListDTO.getName());
 		}
+		if (playListDTO.getSubTitle() != null) {
+			playList.setSubTitle(playListDTO.getSubTitle());
+		}
 		if (playListDTO.getThumbnail() != null) {
 			playList.setModifiedBy(playListDTO.getEmailUser());
+		}
+		if(playListDTO.getPreface() != null) {
+			playList.setPreface(playListDTO.getPreface());
 		}
 		playList.setThumbnail(playListDTO.getThumbnail());
 		return playList;

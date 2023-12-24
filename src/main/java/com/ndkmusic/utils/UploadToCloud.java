@@ -18,7 +18,6 @@ public class UploadToCloud {
 
 //	resource_type is the type of file to upload. Valid values: image, raw, video and auto to automatically detect the file type.
 	public static String createLinkFromCloud(String originalUrl, String resource_type, String public_id) {
-		System.out.println(originalUrl);
 		Cloudinary cloudinary = CLOUDINARY;
 
 		try {

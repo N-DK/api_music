@@ -20,7 +20,15 @@ public class PlayList extends BaseEntity {
 
 	@Column
 	@Lob
+	private String preface;
+	
+	@Column
+	@Lob
 	private String thumbnail;
+
+	@Column
+	@Lob
+	private String subTitle;
 
 	@ManyToOne
 	@JoinColumn(name = "user_id")
@@ -84,5 +92,23 @@ public class PlayList extends BaseEntity {
 	public void setThumbnail(String thumbnail) {
 		this.thumbnail = thumbnail;
 	}
+
+	public String getSubTitle() {
+		return subTitle;
+	}
+
+	public void setSubTitle(String subTitle) {
+		this.subTitle = subTitle;
+	}
+
+	public String getPreface() {
+		return preface;
+	}
+
+	public void setPreface(String preface) {
+		this.preface = preface;
+	}
+	
+	
 
 }
